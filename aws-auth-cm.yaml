@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: aws-auth
+  namespace: kube-system
+data:
+  mapRoles: |
+    - rolearn: arn:aws:iam::857566863074:role/eksctl-simple-jwt-api-nodegroup-n-NodeInstanceRole-34XR90IUXVOY
+      username: system:node:{{EC2PrivateDNSName}}
+      groups:
+        - system:bootstrappers
+        - system:nodes
+    - rolearn: arn:aws:iam::857566863074:role/UdacityFlaskDeployCBKubectlRole
+          username: build
+          groups:
+            - system:masterskubectl apply -f /Volumes/U2/ALEX/Projects/UDACITY/FSND-Deploy-Flask-App-to-Kubernetes-Using-EKS/aws-auth-cm.yaml
